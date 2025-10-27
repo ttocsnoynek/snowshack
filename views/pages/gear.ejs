@@ -1,0 +1,83 @@
+<%- include('../partials/head') %>
+
+<video autoplay muted loop id="background-video">
+  <source src="images/gearbackground.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+
+<div class="overlay">
+  <div class="content-box">
+     <!-- Top Horizontal Bar -->
+    <div class="image-grid">
+      <a href="/"><img src="images/snowshackbox1.png" alt="Pass Banner"></a>
+    </div>
+    <!-- Product Grid -->
+    <div class="product-grid">
+      
+      <!-- ShackstaiONE -->
+      <div class="product-card">
+        <img src="images/ShackStatiONE.png" alt="ShackstatiONE Snowboard" />
+        <h3>SHACKSTATI<span style="color: var(--Rred)">ONE</span></h3>
+        <div class="details-box">
+          <p>
+            Inspired by New York’s underground energy — The ShackstatiONE channels subway grit into mountain dominance. 
+            Featuring <strong>innovative ShackTek™ dual coil flex</strong>, this board adapts to your stance and terrain like muscle memory. 
+            Carbon stringers enhance response for explosive pop and buttery control.
+          </p>
+          <div class="sizes">
+            <button>152</button>
+            <button>154</button>
+            <button>156</button>
+            <button>158</button>
+          </div>
+          <button class="add-cart">ADD TO CART</button>
+        </div>
+      </div>
+
+      <!-- SHACKPOTWO -->
+      <div class="product-card">
+        <img src="images/ShackPoTWO.png" alt="SHACKPOTWO Snowboard" />
+        <h3>SHACKPO<span style="color: var(--Rred)">TWO</span></h3>
+        <div class="details-box">
+          <p>
+            Straight from the Vegas strip to the slopes — the SHACKPOTWO is all about bold tricks and lucky lines. 
+            With <strong>Conforming Dual Coil Flex</strong> and shock-absorb layers, it’s built for riders who want to spin, win, and never fold.
+            Glide smooth and go all-in on every run.
+          </p>
+          <div class="sizes">
+            <button>150</button>
+            <button>152</button>
+            <button>154</button>
+            <button>156</button>
+          </div>
+          <button class="add-cart">ADD TO CART</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  let lastScrollTop = 0;
+  const overlay = document.querySelector('.overlay');
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    if (currentScroll < lastScrollTop) {
+      overlay.classList.add('visible');
+    } else {
+      overlay.classList.remove('visible');
+    }
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  });
+
+  // make product cards toggle on single click
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('expanded');
+    });
+  });
+</script>
+
+<%- include('../partials/foot') %>

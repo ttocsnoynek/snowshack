@@ -1,0 +1,91 @@
+<%- include('../partials/head') %>
+
+<video autoplay muted loop id="background-video">
+  <source src="images/gearbackground.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+
+<div class="overlay">
+  <div class="content-box">
+    
+    <!-- Top Horizontal Bar -->
+    <div class="image-grid">
+      <a href="/"><img src="images/snowshackbox1.png" alt="Pass Banner"></a>
+    </div>
+
+    <!-- Pass Options Section -->
+    <div class="pass-options">
+      <div class="pass-card">
+        <h3>DAY PASS</h3>
+        <div class="details-box">
+          <p>
+            Access any Snow Shack mountain for a full day of shredding freedom.  
+            Includes lift rides, park access, and complimentary wax at select huts.
+          </p>
+          <div class="sizes">
+            <button>ADULT</button>
+            <button>YOUTH</button>
+            <button>KID</button>
+          </div>
+          <button class="add-cart">ADD TO CART</button>
+        </div>
+      </div>
+
+      <div class="pass-card">
+        <h3>SHACKPASS</h3>
+        <div class="details-box">
+          <p>
+            Unlimited season-long access to all Snow Shack locations.  
+            Skip lines, score members-only drops, and earn reward points for every run.
+          </p>
+          <div class="sizes">
+            <button>INDIVIDUAL</button>
+            <button>FAMILY</button>
+            <button>STUDENT</button>
+          </div>
+          <button class="add-cart">ADD TO CART</button>
+        </div>
+      </div>
+
+      <div class="pass-card">
+        <h3>VIP PASS</h3>
+        <div class="details-box">
+          <p>
+            Priority lift service, private lockers, heated shuttle, and early and late mountain access.  
+            Ride the slopes before sunrise and up till 3AM — like a boss.
+          </p>
+          <div class="sizes">
+            <button>DAY</button>
+            <button>WEEK</button>
+            <button>SEASON</button>
+          </div>
+          <button class="add-cart">ADD TO CART</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let lastScrollTop = 0;
+  const overlay = document.querySelector('.overlay');
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    if (currentScroll < lastScrollTop) {
+      overlay.classList.add('visible');
+    } else {
+      overlay.classList.remove('visible');
+    }
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  });
+
+  // make pass cards toggle on single click
+  document.querySelectorAll('.pass-card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('expanded');
+    });
+  });
+</script>
+
+<%- include('../partials/foot') %>

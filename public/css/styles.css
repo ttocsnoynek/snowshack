@@ -1,0 +1,529 @@
+:root {
+    --hue: calc(var(--student-hue, 81));
+    --primary: hsl(var(--hue), 70%, 45%);
+    --primary-600: hsl(var(--hue), 70%, 35%);
+    --bg: hsl(var(--hue), 45%, 97%);
+    --ink: #1b1b1b;
+    --Rred: #FF0300;
+    --jetblack: #2A2B2E;
+    --jetblacklite: #3A3B3E;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    background: #ffffff;
+    height: 2000px; /* simulate scrolling */
+    color: var(--ink);
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--jetblack);
+    padding: 10px 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+}
+.brand h1 {
+    color: var(--Rred);
+    font-size: 2rem;
+    margin: 0;
+    text-transform: uppercase;
+}
+.brand p {
+    color: var(--Rred);
+    font-size: 1rem;
+    margin: 0;
+    text-transform: lowercase;
+}
+.brand p span { margin: 0 6px; }
+
+.nav-items {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    justify-content: flex-end;
+    margin-right: 40px;
+}
+
+.nav-item {
+    background-color: var(--jetblacklite);
+    color: var(--Rred);
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 100px;
+    height: 50px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+    overflow: hidden;
+    position: relative;
+    transition-delay: 0.13s;
+}
+
+.nav-item:hover {
+    width: 240px;
+    height: 200px;
+    justify-content: flex-start;
+    padding-top: 10px;
+    transition-delay: 0s;
+}
+.nav-item span { transition: all 0.4s ease; }
+.nav-item:hover span { margin-bottom: 10px; }
+
+.shop .dropdown {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    max-height: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+.shop .dropdown::-webkit-scrollbar { display: none; }
+
+.shop .dropdown a {
+    background: #444;
+    color: white;
+    padding: 6px;
+    border-radius: 6px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.4s ease;
+    text-decoration: none;
+}
+.shop:hover .dropdown a { opacity: 1; transform: translateY(0); }
+
+
+#background-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Overlay Styles */
+.overlay {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.836);
+    z-index: 999;
+    transition: bottom 0.5s ease-in-out;
+}
+
+.overlay.visible { bottom: 0; }
+
+.overlay .content-box {
+    display: flex;
+    flex-direction: column; /* top horizontal images */
+    padding: 2rem;
+    height: 100%;
+    width: 100%;
+    gap: 2rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Horizontal Image Grid at Top */
+.image-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem; /* space between images */
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-top: 5rem;
+    padding-bottom: 1rem;
+}
+
+.image-grid img {
+    width: 1329px; /* your designed width */
+    height: 203px; /* your designed height */
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0; /* prevents shrinking in flex container */
+}
+
+/* Hide scrollbars but allow scrolling */
+.image-grid::-webkit-scrollbar { display: none; }
+.image-grid { scrollbar-width: none; }
+
+/* PRODUCT GRID */
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding-top: 5rem;
+}
+
+/* PRODUCT CARD */
+.product-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid var(--Rred);
+  border-radius: 12px;
+  width: 350px;
+  padding: 1rem;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.product-card h3 {
+  margin: 0.5rem 0;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+}
+
+/* DETAILS BOX (hidden until double-click) */
+.details-box {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease;
+}
+
+.product-card.expanded .details-box {
+  max-height: 400px; /* expands smoothly */
+}
+
+/* SIZE BUTTONS */
+.sizes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.sizes button {
+  background: var(--Rred);
+  border: none;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sizes button:hover {
+  background: white;
+  color: var(--Rred);
+}
+
+/* ADD TO CART BUTTON */
+.add-cart {
+  background: white;
+  color: var(--Rred);
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-cart:hover {
+  background: var(--Rred);
+  color: white;
+}
+
+.passes .dropdown {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  max-height: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+.passes .dropdown::-webkit-scrollbar {
+  display: none;
+}
+
+.passes .dropdown a {
+  background: #444;
+  color: white;
+  padding: 6px;
+  border-radius: 6px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.4s ease;
+  text-decoration: none;
+}
+
+.passes:hover .dropdown a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.passes:hover .dropdown a:nth-child(1) { transition-delay: 0.05s; }
+.passes:hover .dropdown a:nth-child(2) { transition-delay: 0.1s; }
+.passes:hover .dropdown a:nth-child(3) { transition-delay: 0.15s; }
+.passes:hover .dropdown a:nth-child(4) { transition-delay: 0.2s; }
+
+/* ----- Pass Page Styling ----- */
+
+.pass-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.pass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid var(--Rred);
+  border-radius: 12px;
+  width: 80%;
+  padding: 1.5rem;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  overflow: hidden;
+}
+
+.pass-card h3 {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+  color: white;
+}
+
+.pass-card .details-box {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.pass-card.expanded .details-box {
+  max-height: 500px;
+  opacity: 1;
+  margin-top: 1rem;
+}
+
+.pass-card p {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  color: #ddd;
+}
+
+.pass-card .sizes {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.pass-card .sizes button {
+  background: var(--jetblacklite);
+  color: var(--Rred);
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pass-card .sizes button:hover {
+  background: var(--Rred);
+  color: black;
+}
+
+.add-cart {
+  background: var(--Rred);
+  color: black;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.add-cart:hover {
+  background: white;
+  color: var(--Rred);
+}
+
+/* Remove underline from all links site-wide */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Optional: keep hover effect subtle */
+a:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.nav-item:hover {
+  width: 240px;
+  height: 200px;
+  justify-content: flex-start;
+  padding-top: 10px;
+  transition-delay: 0s;
+}
+
+.nav-item span {
+  transition: all 0.4s ease;
+}
+
+.nav-item:hover span {
+  margin-bottom: 10px;
+}
+
+.shop .dropdown,
+.passes .dropdown,
+.mtn .dropdown {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  max-height: 140px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shop .dropdown a,
+.passes .dropdown a,
+.mtn .dropdown a {
+  background: #444;
+  color: white;
+  padding: 6px;
+  border-radius: 6px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.4s ease;
+  text-decoration: none;
+}
+
+.mtn:hover .dropdown a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dropdown-title {
+  color: var(--Rred);
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 8px;
+  border-bottom: 2px solid var(--Rred);
+  padding-bottom: 4px;
+  font-size: 1.1rem;
+}
+
+/* Hide scrollbars but allow scrolling */
+.shop .dropdown,
+.passes .dropdown,
+.mtn .dropdown {
+  scrollbar-width: none; /* Firefox */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.shop .dropdown::-webkit-scrollbar,
+.passes .dropdown::-webkit-scrollbar,
+.mtn .dropdown::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.info-section {
+  margin: 2rem 0;
+  color: white;
+}
+.info-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.info-section p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.info-section a {
+  display: inline-block;
+  margin-top: 0.5rem;
+  background: var(--Rred);
+  color: black;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
+.map-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 2rem;
+}
+.video-embed {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+}
+.video-embed iframe {
+  width: 100%;
+  max-width: 560px;
+  height: 315px;
+  border: none;
+  border-radius: 8px;
+}
